@@ -1,1 +1,1 @@
-Single header lib with some functions for dealing with strings.
+Some functions for dealing with strings. Inspired by C++'s ```<string_view>```.
