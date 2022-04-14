@@ -20,6 +20,7 @@ sob_t sob_trim(sob_t * s);
 void sob_swap(sob_t * s1, sob_t * s2);
 void sob_copy(sob_t * s, char * dist, size_t count);
 sob_t sob_substr(sob_t * s, size_t pos, size_t count);
+sob_t sob_slice(sob_t * s, size_t start, size_t end)
 bool sob_compare(sob_t * s1, sob_t * s2);
 bool sob_contains(sob_t * s, const char * sub, size_t sub_length);
 size_t sob_find(sob_t * s, const char * sub, size_t sub_length);
@@ -107,10 +108,14 @@ void sob_copy(sob_t * s, char * dist, size_t count)
     strncpy(dist + count, "\0", 1);
 }
 
-sob_t sob_substr(sob_t * s, size_t pos, size_t count)
+sob_t sob_substr(sob_t * s, size_t index, size_t count)
 {
-    size_t index = pos - 1;
     return sob_create(s->str + index, count);
+}
+
+sob_t sob_slice(sob_t * s, size_t start, size_t end)
+{
+    return sob_create(s->str + start, (end - start) + 1);
 }
 
 bool sob_compare(sob_t * s1, sob_t * s2)
@@ -152,7 +157,7 @@ bool sob_contains(sob_t * s, const char * sub, size_t sub_length)
 
 size_t sob_find(sob_t * s, const char * sub, size_t sub_length)
 {
-    if (sub_length > s->length) return false;
+    if (sub_length > s->length) return nopos;
     
     size_t i = 0;
     size_t j = 0;
