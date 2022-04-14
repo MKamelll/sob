@@ -22,7 +22,11 @@ int main()
     const char * sub = "ne";
     size_t len = strlen(sub);
 
-    printf("%d\n", sob_ends_with(&s1, sub, len));
+    //printf("%d\n", sob_ends_with(&s1, sub, len));
+    
+    size_t i;
+    while ((i = sob_find(&s1, ".", 1)) != nopos)
+        s1 = sob_slice(&s1, i + 1, sob_length(&s1) - 1);
     
     /*
     size_t x;
@@ -34,7 +38,7 @@ int main()
     }
     */
     
-    sob_print(&s3);
+    sob_print(&s1);
     
     return 0;
 }
